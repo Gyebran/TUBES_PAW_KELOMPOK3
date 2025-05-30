@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="stylelogin.css">
+    <link rel="stylesheet" href="{{ asset('css/stylelogin.css') }}">
     <style>
         body, html {
             height: 100%;
@@ -15,54 +15,53 @@
             background-position: center;
         }
     </style>
-    </head>
+</head>
 <body>
 
-    <!--main container-->
+    <!-- main container -->
     <div class="container d-flex justify-content-center align-items-center min-vh-100" id="cont">
-
-
-    <!--login container-->
+        <!-- login container -->
         <div class="row border rounded-5 p-3 bg-white shadow box-area">
-
-    <!--bbox kiri-->
-        <div class="col-md-6 rounded-5 d-flex justify-content-center align-items-center flex-column left-box" style="background: white;">
-            <div class="featured-image mb-3">
-                <img src="{{ asset('images/Logo.png') }}" class="img-fluid rounded-bottom-5" style="width: 250px;">
-            </div>
-            <p class="text-black fs-2" style="font-weight: 600; padding-top: 10px;">Welcome Back!</p>
-        </div>  
-    <!--box kanan-->
-        <div class="col-md-6">
-            <div class="row align-items-center">
-                <div class="header-text  mt-3">
-                    <p>Enter your Email and Password.</p>
+            <!-- box kiri -->
+            <div class="col-md-6 rounded-5 d-flex justify-content-center align-items-center flex-column left-box" style="background: white;">
+                <div class="featured-image mb-3">
+                    <img src="{{ asset('images/Logo.png') }}" class="img-fluid rounded-bottom-5" style="width: 250px;">
                 </div>
-
-                <form action="{{ url('/login') }}" method="POST">
-                    @csrf
-
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Email address ">
+                <p class="text-black fs-2" style="font-weight: 600; padding-top: 10px;">Welcome Back!</p>
+            </div>  
+            <!-- box kanan -->
+            <div class="col-md-6">
+                <div class="row align-items-center">
+                    <div class="header-text mt-3 mb-3">
+                        <h4>Login</h4>
+                        <p>Enter your email and password</p>
                     </div>
+                    <!-- tampilkan error login -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                            @endforeach
+                        </div>
+                    @endif
+                    <form method="POST" action="{{ route('login.submit') }}">
+                        @csrf
                         <div class="input-group mb-3">
-                        <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password ">
+                            <input type="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Email address" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <small>Don't have an account? <a href="{{ route('register') }}">Sign Up</a></small>
                     </div>
-                    <div class="input-group mb-3">
-                        <button class="btn btn-lg btn-primary w-100 fs-6">Login</button>
-                    </div>
-
-                </form>
-                <div class="row">
-                    <small>Don't have account? <a href="#">Sign Up</a></small>
                 </div>
-                
-            </div>
-
-        </div>  
-
+            </div>  
         </div>
-
     </div>
 </body>
 </html>
