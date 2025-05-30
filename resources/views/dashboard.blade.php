@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/styleDashboard.css') }}">
   </head>
   <body>
-        <nav class="navbar navbar-light navbar-custom px-3">
+        <nav class=" navbar navbar-expand-lg navbar-light navbar-custom px-3 fixed-top">
             <div class="d-flex align-items-center w-100 mt-1">
                 <!-- logo -->
                 <a class="navbar-brand me-3" href="dashboard" style="margin-left: 50px;" >
@@ -42,15 +42,29 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!--plus tambahin karya-->
-        <div class="d-flex" style="padding-left: 5rem; margin-top: 5rem; ">
-            <div class="d-flex flex-column align-items-center">
-                <div class="add-karya-card">
-                    <span class="plus-sign">+</span>
+        <!--jumbotron-->
+        <div class="p-5 text-center bg-image" style="
+            background-image: url('/images/bg-telkom.webp');
+            height: 700px;
+            ">
+            <div class="mask rounded-3" style="background-color: rgba(0, 0, 0, 0.6); margin-top: 50px; ">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <div class="text-white">
+                        <img src="{{ asset('images/Logo.png') }}" class="rounded-5" alt="" style="margin-top: 20px;" >
+                        <p style="margin-top: 10px;">TelU Arc is a dedicated platform for archiving student works from Telkom University. From final projects to creative innovations, 
+                            every piece is preserved, accessible, and celebrated. Discover, 
+                            share, and be inspired by the academic and creative achievements of the Tel-U community.
+                        </p>
+                        <div class="fotoContoh d-flex justify-content-center gap-5">
+                            <img src="{{ asset('images/foto-desaingrafis.jpg') }}" style="width: 500px; height: 300px;" class="rounded-5" >
+                            <img src="{{ asset('images/foto-webdev.jpg') }}" style="width: 500px; height: 300px;" class="rounded-5">
+                        </div>
+                        <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="#!" role="button" style="margin-top: 20px;" >Show</a>
+                    </div>
                 </div>
-                <label style="margin-top: 5px;">Add your work here!</label>
             </div>
         </div>
+
 
 
   </body>
