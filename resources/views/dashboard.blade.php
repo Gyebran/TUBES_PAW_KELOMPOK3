@@ -45,7 +45,7 @@
         <!--jumbotron-->
         <div class="p-5 text-center bg-image" style="
             background-image: url('/images/bg-telkom.webp');
-            height: 700px;
+            height: 770px;
             ">
             <div class="mask rounded-3" style="background-color: rgba(0, 0, 0, 0.6); margin-top: 50px; ">
                 <div class="d-flex justify-content-center align-items-center h-100">
@@ -59,12 +59,51 @@
                             <img src="{{ asset('images/foto-desaingrafis.jpg') }}" style="width: 500px; height: 300px;" class="rounded-5" >
                             <img src="{{ asset('images/foto-webdev.jpg') }}" style="width: 500px; height: 300px;" class="rounded-5">
                         </div>
-                        <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="#!" role="button" style="margin-top: 20px;" >Show</a>
+                        <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="#!" role="button" style="margin-top: 20px; margin-bottom: 20px; " >Show</a>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!--tampilan karya-->
+        <div class="p-5 bg-image" style="background-color: white; height: 770px;">
+        <h1 style="margin-top: 20px; padding-left: 5rem; font-size: 30px;">Libraries:</h1>
+
+        <div class="container mt-4">
+            <div class="row justify-content-start">
+
+            <div class="col-md-3 mb-4">
+                <div class="d-flex flex-column align-items-center border rounded p-4 h-100">
+                <div class="add-karya-card d-flex align-items-center justify-content-center" style="width: 100%; height: 200px; border: 2px dashed #ccc; border-radius: 10px;">
+                    <span class="plus-sign display-4">+</span>
+                </div>
+                <label class="mt-3 text-center">Add your work here!</label>
+                </div>
+            </div>
+
+            <!-- card library -->
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-sm h-100">
+                <img src="https://via.placeholder.com/288x300?text=Gambar+Seminar" class="card-img-top" alt="Poster Seminar">
+                <div class="card-body">
+                    <p class="mb-1">
+                    <span class="ms-1 fw-bold text-success">Nama Orang</span>
+                    </p>
+                    <p class="fw-semibold">
+                    Seminar Nasional Mahasiswa :<br>Fakultas Teknologi Informasi - Metaverse
+                    </p>
+                    <p><i class="bi bi-calendar-event me-1"></i>21 Maret 2025</p>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <button class="btn btn-danger w-100">
+                    <i class="bi bi-calendar-check me-1"></i>Daftar
+                    </button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
 
 
   </body>
