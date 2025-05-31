@@ -10,6 +10,18 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+
+    public function getProfile()
+    {
+        $user = Auth::user();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Profil Ditemukan!',
+            'user' => $user,
+            ]);
+    }
+
     public function updateProfile(request $request){
         $user = Auth::user();
 
