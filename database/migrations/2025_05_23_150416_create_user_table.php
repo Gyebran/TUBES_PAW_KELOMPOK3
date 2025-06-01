@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             //ini buat registration page
             $table->id();
+            $table->string('name');
+            $table->string('nim')->unique()->nullable();
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+          
             //ini buat edit profile
-            $table->string('name')->nullable();
-            $table->string('nim')->nullable();
             $table->string('jurusan')->nullable();
             $table->string('fakultas')->nullable();
             $table->string('foto_profile')->nullable();
@@ -35,4 +37,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('user');
     }
+
 };
