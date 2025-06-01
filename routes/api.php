@@ -8,8 +8,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('bookmarks')->group(function () {
-    Route::get('/bookmarks', [BookmarkController::class, 'index']); // Menampilkan semua bookmark milik user
-    Route::post('/bookmarks', [BookmarkController::class, 'store']); // Menambahkan bookmark
-    Route::delete('/bookmarks', [BookmarkController::class, 'destroy']); // Menghapus bookmark berdasarkan ID
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/bookmark', [BookmarkController::class, 'index']);
+    Route::post('/bookmark', [BookmarkController::class, 'store']);
+    Route::delete('/bookmark/{id}', [BookmarkController::class, 'destroy']);
 });
