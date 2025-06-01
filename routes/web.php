@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 
+Route::get('/', function () {
+    return view('welcome');
+  
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
@@ -16,4 +20,11 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+});
+
+Route::post('/report', [ReportController::class, 'store'])->middleware('auth');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 });
