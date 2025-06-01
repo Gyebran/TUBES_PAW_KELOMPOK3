@@ -26,4 +26,5 @@ class Report extends Model
     public function handler() {
         return $this->belongsTo(User::class, 'handled_by');
     }
+
 }
