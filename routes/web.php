@@ -1,13 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\KomentarController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/komentar', [KomentarController::class, 'index'])->name('komentar.index');
+Route::post('/komentar', [KomentarController::class, 'store'])->name('komentar.store');
+Route::get('/komentar/{id}', [KomentarController::class, 'show'])->name('komentar.show');
+Route::delete('/komentar/{id}', [KomentarController::class, 'destroy'])->name('komentar.destroy');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserController::class, 'showProfile'])->name('profile.show');
+    Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+    Route::delete('/user/delete', [UserController::class, 'destroy'])->name('user.destroy');
 });
 
 Route::middleware('guest')->group(function () {
@@ -33,3 +45,14 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/bookmark', function () {
     return view('bookmark');
 })->middleware('auth');
+
+Route::fallback(function () {
+    abort(404, 'Route tidak ditemukan. Cek URL dan Method.');
+});
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/komentar', [KomentarController::class, 'index'])->name('komentar.index');
+Route::post('/komentar', [KomentarController::class, 'store'])->name('komentar.store');
+Route::get('/komentar/{id}', [KomentarController::class, 'show'])->name('komentar.show');
+Route::delete('/komentar/{id}', [KomentarController::class, 'destroy'])->name('komentar.destroy');
+

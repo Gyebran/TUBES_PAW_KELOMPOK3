@@ -16,3 +16,5 @@ class Bookmark extends Model
         return $this->belongsTo(Karya::class);
     }
 }
+
+
