@@ -16,5 +16,4 @@ class Komentar extends Model
         'karya_id',
         'content',
     ];
-
-                                              
+}                                     
