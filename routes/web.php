@@ -29,3 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 });
+
+Route::get('/bookmark', function () {
+    return view('bookmark');
+})->middleware('auth');

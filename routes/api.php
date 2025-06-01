@@ -4,6 +4,7 @@ use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookmarkController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -20,4 +21,14 @@ Route::middleware(['auth'])->group(function () {
     })->name('profile.edit');
 
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/bookmark', [BookmarkController::class, 'index']);
+    Route::post('/bookmark', [BookmarkController::class, 'store']);
+    Route::delete('/bookmark/{id}', [BookmarkController::class, 'destroy']);
+
 });
