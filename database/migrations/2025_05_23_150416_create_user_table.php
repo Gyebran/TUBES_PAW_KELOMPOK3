@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            //ini buat registration page
             $table->id();
             $table->string('nama');
             $table->string('nim')->unique();
@@ -20,12 +19,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
           
-            //ini buat edit profile
             $table->string('jurusan')->nullable();
             $table->string('fakultas')->nullable();
             $table->string('foto_profile')->nullable();
 
             $table->rememberToken();
+            $table->timestamps();
         });
     }
 
