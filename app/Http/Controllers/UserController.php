@@ -21,7 +21,7 @@ class UserController extends Controller
             'user' => $user,
             ]);
     }
-
+  
     public function showProfile()
     {
         $user = Auth::user();
@@ -46,7 +46,7 @@ class UserController extends Controller
         ]);
 
         //ini buat update data ya ges
-        $user->nama = $request->nama;
+        $user->name = $request->name;
         $user->nim = $request->nim;
         $user->jurusan = $request->jurusan;
         $user->fakultas = $request->fakultas;
