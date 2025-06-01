@@ -33,7 +33,7 @@ class UserController extends Controller
 
         //ini buat validasi ingput
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'nim' => [
                 'required',
                 'string',

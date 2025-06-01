@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             //ini buat edit profile
-            $table->string('nama')->nullable();
+            $table->string('name')->nullable();
             $table->string('nim')->nullable();
             $table->string('jurusan')->nullable();
             $table->string('fakultas')->nullable();
