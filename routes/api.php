@@ -17,7 +17,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile', [UserController::class, 'updateProfile']);
 });
 
-Route::middleware(['auth:sanctum', IsAdmin::class])->get('/admin/dashboard', [AdminController::class, 'index']);
+Route::middleware(['auth:sanctum', IsAdmin::class])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index']);
+    Route::post('/reports/{report}/update-status', [ReportController::class, 'updateStatus'])->name('reports.updateStatus');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');

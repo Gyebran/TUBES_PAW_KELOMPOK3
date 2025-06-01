@@ -42,4 +42,28 @@ class ReportController extends Controller
 
         return redirect()->back()->with('success', 'Status laporan diperbarui');
     }
+
+    public function myReports()
+    {
+        $userId = auth()->id();
+        $reports = Report::with('karya')->where('reporter_id', $userId)->latest()->get();
+        return view('reports.my_reports', compact('reports'));
+    }
+
+    public function updateStatus(Request $request, Report $report)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        $request->validate([
+            'status' => 'required|in:pending,diterima,ditolak',
+        ]);
+
+        $report->status = $request->status;
+        $report->handled_by = auth()->user()->id;
+        $report->save();
+
+        return redirect()->back()->with('success', 'Status laporan diperbarui.');
+    }
 }
