@@ -18,7 +18,7 @@
                 <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Foto Profil" class="img-thumbnail" width="150">
             @endif
 
-            <a href="{{ route('profile.edit') }}" class="btn btn-warning mt-3">Edit Profil</a>
+            <a href="{{ route('profile.update') }}" class="btn btn-warning mt-3">Edit Profil</a>
             <a href="{{ route('dashboard') }}" class="btn btn-secondary mt-3">Kembali ke Dashboard</a>
         </div>
     </div>
