@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -12,6 +11,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile.show');
     Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+    Route::delete('/user/delete', [UserController::class, 'destroy'])->name('user.destroy');
 });
 
 Route::middleware('guest')->group(function () {
@@ -32,4 +32,8 @@ Route::post('/report', [ReportController::class, 'store'])->middleware('auth');
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+});
+
+Route::fallback(function () {
+    abort(404, 'Route tidak ditemukan. Cek URL dan Method.');
 });

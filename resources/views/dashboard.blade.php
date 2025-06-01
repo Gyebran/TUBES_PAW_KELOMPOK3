@@ -26,8 +26,13 @@
 
                     <!-- profile dropdown -->
                     <div class="profile">
-                        <a class="user" href="#" >
-                            <img src="{{ asset('images/user.png') }}" alt="profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;" >
+                        <<a class="user" href="{{ route('profile.show') }}">
+                            <img 
+                                src="{{ Auth::user()->foto_profile ? asset('storage/' . Auth::user()->foto_profile) : asset('images/user.png') }}" 
+                                alt="profile" 
+                                class="rounded-circle" 
+                                style="width: 30px; height: 30px; object-fit: cover;"
+                            >
                         </a>
                     </div>
                     <form action="{{ route('logout') }}" style="padding-left: 20px;" method="POST" >
