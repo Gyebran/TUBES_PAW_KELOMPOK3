@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,4 +43,5 @@ class ReportController extends Controller
 
         return redirect()->back()->with('success', 'Status laporan diperbarui');
     }
+
 }

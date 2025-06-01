@@ -87,4 +87,5 @@ class UserController extends Controller
 
         return redirect('/dashboard')->with('success', 'Akun Anda berhasil dihapus.');
     }
+
 }

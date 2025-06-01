@@ -15,13 +15,6 @@ Route::post('/komentar', [KomentarController::class, 'store'])->name('komentar.s
 Route::get('/komentar/{id}', [KomentarController::class, 'show'])->name('komentar.show');
 Route::delete('/komentar/{id}', [KomentarController::class, 'destroy'])->name('komentar.destroy');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [UserController::class, 'showProfile'])->name('profile.show');
-    Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
-    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
-    Route::delete('/user/delete', [UserController::class, 'destroy'])->name('user.destroy');
-});
-
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
@@ -31,28 +24,28 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [KaryaController::class, 'index'])->name('dashboard');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::get('/karya/create', [KaryaController::class, 'create'])->name('karya.create'); // form tambah karya
+    Route::post('/karya', [KaryaController::class, 'store'])->name('karya.store'); // simpan karya
+
+    Route::get('/karya/{id}/edit', [KaryaController::class, 'edit'])->name('karya.edit'); // form edit karya
+    Route::put('/karya/{id}', [KaryaController::class, 'update'])->name('karya.update'); // update karya
+    Route::delete('/karya/{id}', [KaryaController::class, 'destroy'])->name('karya.destroy'); // hapus karya
 });
 
-Route::post('/report', [ReportController::class, 'store'])->middleware('auth');
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
+Route::middleware('auth')->group(function () {
+    Route::post('/report', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 });
 
-Route::get('/bookmark', function () {
-    return view('bookmark');
-})->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/bookmark', function () {
+        return view('bookmark');
+    })->name('bookmark.view');
 
-Route::fallback(function () {
-    abort(404, 'Route tidak ditemukan. Cek URL dan Method.');
+    Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');
+    Route::post('/bookmarks', [BookmarkController::class, 'store'])->name('bookmarks.store');
+    Route::delete('/bookmarks/{id}', [BookmarkController::class, 'destroy'])->name('bookmarks.destroy');
 });
-
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/komentar', [KomentarController::class, 'index'])->name('komentar.index');
-Route::post('/komentar', [KomentarController::class, 'store'])->name('komentar.store');
-Route::get('/komentar/{id}', [KomentarController::class, 'show'])->name('komentar.show');
-Route::delete('/komentar/{id}', [KomentarController::class, 'destroy'])->name('komentar.destroy');
-

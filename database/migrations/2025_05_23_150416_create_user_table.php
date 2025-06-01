@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-          
-            //ini buat edit profile
             $table->string('jurusan')->nullable();
             $table->string('fakultas')->nullable();
             $table->string('foto_profile')->nullable();
@@ -37,4 +35,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('user');
     }
-}
+};
+

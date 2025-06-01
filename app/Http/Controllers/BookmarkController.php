@@ -3,34 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Bookmark;
+use App\Models\Karya; 
 
 class BookmarkController extends Controller
 {
     /**
-     * Menampilkan semua bookmark milik user yang sedang login
+     * Tampilkan semua bookmark milik user yang login
      */
     public function index()
     {
         $bookmarks = Bookmark::with('karya')->where('user_id', auth()->id())->get();
 
-        // Mengubah format output agar sesuai dengan yang digunakan di view
-        $formatted = $bookmarks->map(function ($bookmark) {
-            return [
-                'id' => $bookmark->id,
-                'nama_kegiatan' => $bookmark->karya->nama_kegiatan ?? '-',
-                'deskripsi' => $bookmark->karya->deskripsi ?? '-',
-                'tanggal' => $bookmark->karya->tanggal ?? '-',
-                'poster' => $bookmark->karya->poster ?? null,
-            ];
-        });
-
-        return response()->json($formatted);
+        return view('bookmark.index', compact('bookmarks'));
     }
 
     /**
-     * Menyimpan bookmark baru
+     * Tampilkan form untuk membuat bookmark baru
+     */
+    public function create()
+    {
+        $karyas = Karya::all(); // jika butuh list karya untuk dipilih
+        return view('bookmark.create', compact('karyas'));
+    }
+
+    /**
+     * Simpan bookmark baru
      */
     public function store(Request $request)
     {
@@ -38,16 +36,61 @@ class BookmarkController extends Controller
             'karya_id' => 'required|exists:karyas,id',
         ]);
 
-        $bookmark = Bookmark::firstOrCreate([
+        Bookmark::firstOrCreate([
             'user_id' => auth()->id(),
             'karya_id' => $request->karya_id,
         ]);
 
-        return response()->json($bookmark, 201);
+        return redirect()->route('bookmark.index')->with('success', 'Bookmark berhasil ditambahkan.');
     }
 
     /**
-     * Menghapus bookmark berdasarkan ID
+     * Tampilkan detail satu bookmark
+     */
+    public function show($id)
+    {
+        $bookmark = Bookmark::with('karya')->where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        return view('bookmark.show', compact('bookmark'));
+    }
+
+    /**
+     * Tampilkan form edit bookmark
+     */
+    public function edit($id)
+    {
+        $bookmark = Bookmark::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $karyas = Karya::all();
+        return view('bookmark.edit', compact('bookmark', 'karyas'));
+    }
+
+    /**
+     * Update bookmark yang sudah ada
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'karya_id' => 'required|exists:karyas,id',
+        ]);
+
+        $bookmark = Bookmark::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $bookmark->update([
+            'karya_id' => $request->karya_id,
+        ]);
+
+        return redirect()->route('bookmark.index')->with('success', 'Bookmark berhasil diperbarui.');
+    }
+
+    /**
+     * Hapus bookmark
      */
     public function destroy($id)
     {
@@ -57,6 +100,6 @@ class BookmarkController extends Controller
 
         $bookmark->delete();
 
-        return response()->json(['message' => 'Bookmark deleted']);
+        return redirect()->route('bookmark.index')->with('success', 'Bookmark berhasil dihapus.');
     }
 }
