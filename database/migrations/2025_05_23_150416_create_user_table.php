@@ -15,7 +15,7 @@ return new class extends Migration
             //ini buat registration page
             $table->id();
             $table->string('name');
-            $table->string('nim')->unique();
+            $table->string('nim')->unique()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
