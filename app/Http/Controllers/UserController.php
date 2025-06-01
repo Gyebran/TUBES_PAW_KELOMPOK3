@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +41,7 @@ class UserController extends Controller
             ],
             'jurusan' => 'nullable|string|max:255',
             'fakultas' => 'nullable|string|max:255',
-            'foto_profile' => 'nullable|images|mimes:jpg,jpeg,png|max:2048'
+            'foto_profile' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
         //ini buat update data ya ges
@@ -65,5 +64,26 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function editProfile()
+    {
+        $user = Auth::user();
+        return view('profile.update', compact('user'));
+    }
+
+    public function destroy()
+    {
+        $user = Auth::user();
+
+        // Hapus foto profil jika ada
+        if ($user->foto_profile && Storage::exists('public/' . $user->foto_profile)) {
+            Storage::delete('public/' . $user->foto_profile);
+        }
+
+        Auth::logout(); // Logout dulu sebelum hapus akun
+        $user->delete(); // Hapus user dari database
+
+        return redirect('/dashboard')->with('success', 'Akun Anda berhasil dihapus.');
     }
 }
