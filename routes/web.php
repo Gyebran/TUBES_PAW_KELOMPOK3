@@ -8,7 +8,8 @@ use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
-  
+});
+
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');

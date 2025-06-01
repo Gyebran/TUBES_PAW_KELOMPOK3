@@ -27,7 +27,7 @@ class UserController extends Controller
 
         //ini buat validasi ingput
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'nim' => [
                 'required',
                 'string',
@@ -40,7 +40,7 @@ class UserController extends Controller
         ]);
 
         //ini buat update data ya ges
-        $user->nama = $request->nama;
+        $user->name = $request->name;
         $user->nim = $request->nim;
         $user->jurusan = $request->jurusan;
         $user->fakultas = $request->fakultas;

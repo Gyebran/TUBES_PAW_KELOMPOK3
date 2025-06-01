@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             //ini buat registration page
             $table->id();
-            $table->string('nama');
+            $table->string('name');
             $table->string('nim')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('foto_profile')->nullable();
 
             $table->rememberToken();
+            $table->timestamps();
         });
     }
 

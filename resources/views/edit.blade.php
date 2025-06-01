@@ -11,8 +11,8 @@
                 @csrf
                 <!-- Nama -->
                 <div class="mb-3">
-                    <label for="nama" class="form-label">Nama Lengkap</label>
-                    <input type="text" name="nama" class="form-control" value="{{ old('nama', auth()->user()->nama) }}" required>
+                    <label for="name" class="form-label">Nama Lengkap</label>
+                    <input type="text" name="name" class="form-control" value="{{ old('name', auth()->user()->name) }}" required>
                 </div>
 
                 <!-- NIM -->

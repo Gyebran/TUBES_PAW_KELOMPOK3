@@ -12,6 +12,7 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'name' => 'admin1',
+            'nim' => 'admin1',
             'email' => 'admin1@telkomuniversity.ac.id',
             'password' => Hash::make('password123'),
             'email_verified_at' => now(),
