@@ -22,6 +22,12 @@ class UserController extends Controller
             ]);
     }
 
+    public function showProfile()
+    {
+        $user = Auth::user();
+        return view('users.show', compact('user'));
+    }
+
     public function updateProfile(request $request){
         $user = Auth::user();
 
@@ -58,10 +64,6 @@ class UserController extends Controller
 
         $user->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Profil Berhasil Diperbarui!',
-            'user' => $user,
-        ]);
+        return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui!');
     }
 }
