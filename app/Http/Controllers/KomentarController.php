@@ -4,78 +4,41 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Komentar;
-use App\Models\Karya;
-use Illuminate\Support\Facades\Auth;
 
 class KomentarController extends Controller
 {
-    /**
-     * Menyimpan komentar baru
-     */
-    public function store(Request $request, $karya_id)
+    public function index()
     {
+        // Ambil semua komentar dari database
+        $komentars = Komentar::all();
+
+        // Kirim ke view komentar.blade.php
+        return view('komentar', compact('komentars'));
+    }
+
+    public function store(Request $request)
+    {
+        // Validasi input
         $request->validate([
-            'content' => 'required|string|max:1000',
+            'user_id' => 'required|integer',
+            'karya_id' => 'required|integer',
+            'content' => 'required|string',
         ]);
 
-        Komentar::create([
-            'user_id' => Auth::id(),
-            'karya_id' => $karya_id,
-            'content' => $request->content,
-        ]);
+        // Simpan komentar ke database
+        Komentar::create($request->all());
 
-        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
+        return redirect()->route('komentar.index')->with('success', 'Komentar berhasil dikirim!');
     }
-
-    /**
-     * Menampilkan form edit komentar (jika pakai modal atau halaman khusus)
-     */
-    public function edit($id)
+    
+    public function user()
     {
-        $komentar = Komentar::findOrFail($id);
-
-        // Cek jika komentar milik user yang login
-        if ($komentar->user_id !== Auth::id()) {
-            abort(403, 'Tidak punya akses');
-        }
-
-        return view('komentar.edit', compact('komentar'));
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * Update komentar
-     */
-    public function update(Request $request, $id)
+    public function karya()
     {
-        $komentar = Komentar::findOrFail($id);
-
-        if ($komentar->user_id !== Auth::id()) {
-            abort(403, 'Tidak punya akses');
-        }
-
-        $request->validate([
-            'content' => 'required|string|max:1000',
-        ]);
-
-        $komentar->update([
-            'content' => $request->content,
-        ]);
-
-        return redirect()->back()->with('success', 'Komentar berhasil diperbarui.');
+        return $this->belongsTo(Karya::class);
     }
 
-    /**
-     * Hapus komentar
-     */
-    public function destroy($id)
-    {
-        $komentar = Komentar::findOrFail($id);
-
-        if ($komentar->user_id === Auth::id() || Auth::user()->is_admin) {
-            $komentar->delete();
-            return redirect()->back()->with('success', 'Komentar berhasil dihapus.');
-        }
-
-        abort(403, 'Tidak punya akses');
-    }
 }
