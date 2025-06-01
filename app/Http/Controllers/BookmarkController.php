@@ -59,4 +59,4 @@ class BookmarkController extends Controller
 
         return response()->json(['message' => 'Bookmark deleted']);
     }
-
+}
